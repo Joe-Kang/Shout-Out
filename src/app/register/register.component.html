@@ -1,0 +1,25 @@
+<mat-card class="register-container">
+  <div fxLayout="column">
+    <mat-form-field>
+      <input matInput placeholder="First Name">
+    </mat-form-field>
+
+    <mat-form-field fxFlex>
+      <input matInput placeholder="Last Name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Username">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Password" type="password">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row">
+    <button (click)="cancel()" mat-button color="accent" fxFlex>Cancel</button>
+    <div fxFlex></div>
+    <button (click)="register()" mat-button color="primary" fxFlex>Register</button>
+
+  </div>
+</mat-card>

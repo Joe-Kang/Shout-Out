@@ -7,29 +7,17 @@
 </head>
 
 <body>
-  <div class="background1">
-    <mat-toolbar color="primary" >
-        <mat-toolbar-row class="toolbar">
-          <span> {{title}} </span>
-          <span class="spacer"></span>
-          <mat-icon class="icon"> account_circle </mat-icon>
-        </mat-toolbar-row>
-    </mat-toolbar>
-    <app-login></app-login>
-  </div>
+  <mat-toolbar color="primary" class="toolbar">
+      <mat-toolbar-row class="toolbar">
+        <span> {{title}} </span>
+        <span class="spacer"></span>
+        <mat-icon class="icon"> account_circle </mat-icon>
+      </mat-toolbar-row>
+  </mat-toolbar>
+  <router-outlet></router-outlet>
 
-  <!-- <br>
-  <mat-card>
-    <mat-select placeholder="Favorite Animal">
-      <mat-option value="cat">Cat</mat-option>
-      <mat-option value="dog">Dog</mat-option>
-    </mat-select>
 
-  </mat-card>
 
-  <div (click)="toggle()" [@openClose]="isOpen ? 'open' : 'closed'" class="open-close-container">
-      <p>The box is now {{ isOpen ? 'Open' : 'Closed' }}!</p>
-    </div> -->
 
 </body>
 

@@ -1,5 +1,5 @@
 
-<mat-card class="login-container" >
+<mat-card class="login-container" [@openClose]="isOpen ? 'open' : 'closed'">
   <div fxLayout="column">
     <div fxFlex></div>
       <mat-form-field fxFlex>
@@ -17,4 +17,3 @@
   </div>
 
 </mat-card>
-
