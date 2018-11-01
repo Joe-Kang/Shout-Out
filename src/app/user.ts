@@ -1,6 +1,7 @@
 export class User {
+  firstname: string;
+  lastname: string;
   username: string;
-  first_name: string;
-  last_name: string;
+  password: string;
   rating: any[];
 }

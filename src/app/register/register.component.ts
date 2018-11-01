@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { User } from '../user';
+import { ApiService } from '../api.service';
 import {
   trigger,
   state,
@@ -16,18 +18,11 @@ import {
   styleUrls: ['./register.component.scss'],
   animations: [
     trigger('upDown', [
-      // ...
       state('down', style({
-        width: "300px",
-        height: "300px",
-        top: "55px",
-        margin: "auto"
+        top: "58px"
       })),
       state('up', style({
-        width: "300px",
-        height: '300px',
         top: "-275px",
-        margin: "auto",
         "z-index": "0"
       })),
       transition('down => up', [
@@ -40,10 +35,14 @@ import {
   ],
 })
 export class RegisterComponent implements OnInit {
+  user = new User();
+  users: User[];
+  result: string;
 
   constructor(
     private _route: Router,
-    private location: Location
+    private location: Location,
+    private apiService: ApiService
     ) { }
 
   show: boolean;
@@ -54,7 +53,10 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-
+    this.apiService.addUser(this.user)
+      .subscribe(user => {
+        this.users.push(user);
+      });
   }
 
   cancel(): void {

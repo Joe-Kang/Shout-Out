@@ -2,7 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }  from './in-memory-data.service';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import {
   MatAutocompleteModule,
@@ -57,6 +60,7 @@ import { RegisterComponent } from './register/register.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    FormsModule,
     HttpClientModule,
     FlexLayoutModule,
     MatAutocompleteModule,
@@ -94,6 +98,9 @@ import { RegisterComponent } from './register/register.component';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

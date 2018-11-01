@@ -6,9 +6,7 @@ import {
   style,
   animate,
   transition,
-  // ...
 } from '@angular/animations';
-import { AutofillMonitor } from '@angular/cdk/text-field';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +49,6 @@ export class LoginComponent implements OnInit {
   }
 
   register(): void {
-
     this.show = false;
     setTimeout(() => this._route.navigateByUrl('register'), 700);
   }
