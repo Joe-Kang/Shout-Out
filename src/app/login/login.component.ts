@@ -15,23 +15,25 @@ import { AutofillMonitor } from '@angular/cdk/text-field';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   animations: [
-    trigger('openClose', [
-      // ...
-      state('open', style({
+    trigger('upDown', [
+      state('down', style({
         width: "300px",
         height: "175px",
+        top: "55px",
+        margin: "auto"
       })),
-      state('closed', style({
+      state('up', style({
         width: "300px",
         height: '175px',
         top: "-220px",
-        margin: "auto"
+        margin: "auto",
+        "z-index": "0"
       })),
-      transition('open => closed', [
-        animate('1s')
+      transition('down => up', [
+        animate('0.7s')
       ]),
-      transition('closed => open', [
-        animate('0.5s')
+      transition('up => down', [
+        animate('0.7s')
       ]),
     ]),
   ],
@@ -40,24 +42,21 @@ export class LoginComponent implements OnInit {
   username;
   constructor(private _route: Router) { }
 
+  show: boolean;
+
   ngOnInit() {
+    this.show = false;
+    setTimeout(() => this.show = true)
+
   }
 
   register(): void {
-    this.toggle();
-    setTimeout(function() {this._route.navigateByUrl('register');}, 500)
 
+    this.show = false;
+    setTimeout(() => this._route.navigateByUrl('register'), 700);
   }
 
   login(): void {
 
   }
-
-  isOpen = true;
-
-  toggle() {
-    this.isOpen = !this.isOpen;
-  }
-
-
 }
