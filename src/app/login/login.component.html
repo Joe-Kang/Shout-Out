@@ -1,5 +1,5 @@
 
-<mat-card class="login-container" color="primary">
+<mat-card class="login-container" >
   <div fxLayout="column">
     <div fxFlex></div>
       <mat-form-field fxFlex>
@@ -11,9 +11,9 @@
       </mat-form-field>
   </div>
   <div fxLayout="row">
-    <button mat-button color="accent" fxFlex>Register</button>
+    <button (click)="register()" mat-button color="accent" fxFlex>Register</button>
     <div fxFlex></div>
-    <button mat-button color="primary" fxFlex>Login</button>
+    <button (click)="login()" mat-button color="primary" fxFlex>Login</button>
   </div>
 
 </mat-card>

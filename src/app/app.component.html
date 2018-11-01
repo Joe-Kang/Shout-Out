@@ -7,14 +7,17 @@
 </head>
 
 <body>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span> {{title}} </span>
-      <span class="spacer"></span>
-      <mat-icon class="icon"> account_circle </mat-icon>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <app-login></app-login>
+  <div class="background1">
+    <mat-toolbar color="primary" >
+        <mat-toolbar-row class="toolbar">
+          <span> {{title}} </span>
+          <span class="spacer"></span>
+          <mat-icon class="icon"> account_circle </mat-icon>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <app-login></app-login>
+  </div>
+
   <!-- <br>
   <mat-card>
     <mat-select placeholder="Favorite Animal">
