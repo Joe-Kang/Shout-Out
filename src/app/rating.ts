@@ -1,6 +1,10 @@
+import { User } from './user';
+import { Team } from './team';
+
 export class Rating {
-  user: any;
-  team: any;
+  id: number;
+  user: User["id"];
+  team: Team["id"];
   helpful: number;
   responsive: number;
   friendly: number;

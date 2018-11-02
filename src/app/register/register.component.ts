@@ -53,10 +53,11 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
+    this.user.rating;
     this.apiService.addUser(this.user)
-      .subscribe(user => {
-        this.users.push(user);
-      });
+      .subscribe();
+    this.show = false;
+    setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
   }
 
   cancel(): void {

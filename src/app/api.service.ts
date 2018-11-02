@@ -12,7 +12,6 @@ const httpOptions = {
 };
 
 @Injectable({ providedIn: 'root' })
-
 export class ApiService {
 
   private usersUrl = 'api/users';
@@ -21,6 +20,10 @@ export class ApiService {
 
   addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user, httpOptions)
+  }
+
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.usersUrl)
   }
 
 
