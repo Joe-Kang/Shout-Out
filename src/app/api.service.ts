@@ -20,6 +20,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
+  userLoggedIn: User;
+
 
   // Users
   getUsers(): Observable<User[]> {
@@ -28,6 +30,11 @@ export class ApiService {
 
   getUser(id: number): Observable<User> {
     const url = `${this.usersUrl}/${id}`;
+    return this.http.get<User>(url);
+  }
+
+  findUser(username: string): Observable<User> {
+    const url = `${this.usersUrl}/${username}`;
     return this.http.get<User>(url);
   }
 

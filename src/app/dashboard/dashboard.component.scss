@@ -1,6 +1,22 @@
-.user-list {
-  width: 200px;
-  height: 300px;
-  padding-top: 100px;
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
   margin: auto;
+  min-width: 368px;
+  padding-top: 65px;
+}
+
+mat-table {
+  overflow: auto;
+  min-height: 302px;
+  max-height: 547px;
+}
+
+.filter {
+  padding: 8px 24px 0;
+}
+
+th.mat-sort-header-sorted {
+  color: black;
 }

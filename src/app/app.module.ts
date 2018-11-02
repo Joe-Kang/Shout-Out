@@ -19,6 +19,9 @@ import {
   MatSelectModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatTableModule,
+  MatSortModule,
+  MatPaginatorModule,
 } from '@angular/material';
 
 
@@ -52,6 +55,9 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatSelectModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )

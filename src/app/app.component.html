@@ -9,9 +9,9 @@
 <body>
   <mat-toolbar color="primary" class="toolbar">
       <mat-toolbar-row class="toolbar">
-        <span> {{title}} </span>
+        <button (click)="homepage()"> Shout Out </button>
         <span class="spacer"></span>
-        <mat-icon class="icon"> account_circle </mat-icon>
+        <mat-icon (click)="profile()" class="icon"> account_circle </mat-icon>
       </mat-toolbar-row>
   </mat-toolbar>
   <router-outlet></router-outlet>

@@ -7,15 +7,36 @@ export class InMemoryDataService implements InMemoryDbService {
     createDb() {
       const users = [
         {id: 0, firstname: "user1", lastname: "user1", username: "user1", password: "hello", rating: [0]},
-        {id: 2, firstname: "user2", lastname: "user2", username: "user2", password: "hello", rating: [1]},
-        {id: 3, firstname: "user3", lastname: "user3", username: "user3", password: "hello", rating: [2]},
-        {id: 4, firstname: "user4", lastname: "user4", username: "user4", password: "hello", rating: []},
+        {id: 1, firstname: "user2", lastname: "user2", username: "user2", password: "hello", rating: [1]},
+        {id: 2, firstname: "user3", lastname: "user3", username: "user3", password: "hello", rating: [2]},
+        {id: 3, firstname: "user4", lastname: "user4", username: "user4", password: "hello", rating: []},
       ];
 
       const teams = [
-        {id: 0, name: "ngWeb", rating: [0]},
-        {id: 1, name: "HR", rating: [1]},
-        {id: 2, name: "IT", rating: [2]}
+        {id: 1, name: "team1", rating: [0, 3]},
+        {id: 2, name: "team2", rating: [1]},
+        {id: 3, name: "team3", rating: [2]},
+        {id: 4, name: "team4", rating: [0, 3]},
+        {id: 5, name: "team5", rating: [1]},
+        {id: 6, name: "team6", rating: [2]},
+        {id: 7, name: "team7", rating: [0, 3]},
+        {id: 8, name: "team8", rating: [1]},
+        {id: 9, name: "team9", rating: [2]},
+        {id: 10, name: "team10", rating: [0, 3]},
+        {id: 11, name: "team11", rating: [1]},
+        {id: 12, name: "team12", rating: [2]},
+        {id: 13, name: "team13", rating: [0, 3]},
+        {id: 14, name: "team14", rating: [1]},
+        {id: 15, name: "team15", rating: [2]},
+        {id: 16, name: "team16", rating: [0, 3]},
+        {id: 17, name: "team17", rating: [1]},
+        {id: 18, name: "team18", rating: [2]},
+        {id: 19, name: "team19", rating: [0, 3]},
+        {id: 20, name: "team20", rating: [1]},
+        {id: 21, name: "team21", rating: [2]},
+        {id: 22, name: "team22", rating: [0, 3]},
+        {id: 23, name: "team23", rating: [1]},
+        {id: 24, name: "team24", rating: [2]},
       ];
 
       const ratings = [

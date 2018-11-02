@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../user';
 import { Team } from '../team';
 import { ApiService } from '../api.service';
+import { MatTableDataSource, MatSort, MatPaginator, MatTab } from '@angular/material';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,16 +10,36 @@ import { ApiService } from '../api.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  users: User[] = []
-  constructor(private apiService: ApiService) { }
+  displayedColumns: string[] = ['id', 'name', 'rating'];
+  dataSource: MatTableDataSource<Team>;
+
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
+
+  constructor(private apiService: ApiService) {
+
+  }
 
   ngOnInit() {
-    this.getUsers();
+    this.getTeams();
   }
 
-  getUsers(): void {
-    this.apiService.getUsers()
-      .subscribe(users => this.users = users);
+  ngAfterViewInit() {
+    setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
+    setTimeout(() =>this.dataSource.sort = this.sort, 500);
+
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  getTeams(): void {
+    this.apiService.getTeams()
+      .subscribe(teams => this.dataSource = new MatTableDataSource(teams));
+  }
+
 
 }

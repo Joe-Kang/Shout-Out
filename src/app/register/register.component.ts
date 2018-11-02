@@ -36,9 +36,7 @@ import {
 })
 export class RegisterComponent implements OnInit {
   user = new User();
-  users: User[];
   result: string;
-
   constructor(
     private _route: Router,
     private location: Location,
@@ -54,6 +52,7 @@ export class RegisterComponent implements OnInit {
 
   register(): void {
     this.user.rating;
+    this.apiService.userLoggedIn = this.user;
     this.apiService.addUser(this.user)
       .subscribe();
     this.show = false;
