@@ -51,10 +51,8 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    this.user.rating;
-    this.apiService.userLoggedIn = this.user;
     this.apiService.addUser(this.user)
-      .subscribe();
+      .subscribe(user => this.apiService.userLoggedIn = user);
     this.show = false;
     setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
   }
@@ -62,7 +60,6 @@ export class RegisterComponent implements OnInit {
   cancel(): void {
     this.show = false;
     setTimeout(() => this.location.back(), 700);
-    ;
   }
 
 }

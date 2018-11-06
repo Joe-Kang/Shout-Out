@@ -9,7 +9,7 @@ export class InMemoryDataService implements InMemoryDbService {
         {id: 0, firstname: "user1", lastname: "user1", username: "user1", password: "hello", rating: [0]},
         {id: 1, firstname: "user2", lastname: "user2", username: "user2", password: "hello", rating: [1]},
         {id: 2, firstname: "user3", lastname: "user3", username: "user3", password: "hello", rating: [2]},
-        {id: 3, firstname: "user4", lastname: "user4", username: "user4", password: "hello", rating: []},
+        {id: 3, firstname: "user4", lastname: "user4", username: "user4", password: "hello", rating: [0, 1, 2, 3]},
       ];
 
       const teams = [
@@ -49,7 +49,7 @@ export class InMemoryDataService implements InMemoryDbService {
     }
 
 
-    genId(db): number {
+    genId(db: any[]): number {
       return db.length > 0 ? Math.max(...db.map(db => db.id)) + 1 : 0;
     }
 }

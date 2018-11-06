@@ -73,6 +73,7 @@ export class ApiService {
     return this.http.get<Rating>(url);
   }
 
+
   addRating(rating: Rating): Observable<Rating> {
     return this.http.post<Rating>(this.ratingsUrl, rating, httpOptions)
   }

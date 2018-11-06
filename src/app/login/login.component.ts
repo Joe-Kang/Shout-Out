@@ -73,12 +73,14 @@ export class LoginComponent implements OnInit {
           setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
         } else {
           this.login_failed = true;
-          console.log("found user but wrong password")
+          console.log("found user but wrong password");
           break;
         }
       }
     }
-
+    if(this.show == true) {
+      console.log("Wrong username")
+    }
 
   }
 }

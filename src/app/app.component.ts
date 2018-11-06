@@ -12,12 +12,14 @@ export class AppComponent {
 
   constructor(private apiService: ApiService,
     private route: Router) {
+      if(this.apiService.userLoggedIn == null) {
+        this.route.navigateByUrl('login');
+      }
     }
 
   homepage(): void {
     if(this.apiService.userLoggedIn) {
       this.route.navigateByUrl('dashboard')
-      console.log("go to homepage")
     }
   }
   profilepage(): void {
