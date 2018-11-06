@@ -16,27 +16,27 @@
 
       <ng-container matColumnDef="id">
           <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
-          <mat-cell *matCellDef="let userRating"> {{userRating.id}} </mat-cell>
+          <mat-cell *matCellDef="let rating"> {{rating.id}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="team">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
-          <mat-cell *matCellDef="let userRating"> {{userRating.team}}</mat-cell>
+          <mat-cell *matCellDef="let rating"> {{rating.team}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="helpful">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Helpful </mat-header-cell>
-          <mat-cell *matCellDef="let userRating"> {{userRating.helpful}}</mat-cell>
+          <mat-cell *matCellDef="let rating"> {{rating.helpful}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="responsive">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Responsive </mat-header-cell>
-          <mat-cell *matCellDef="let userRating"> {{userRating.responsive}}</mat-cell>
+          <mat-cell *matCellDef="let rating"> {{rating.responsive}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="friendly">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Friendly </mat-header-cell>
-          <mat-cell *matCellDef="let userRating"> {{userRating.friendly}}</mat-cell>
+          <mat-cell *matCellDef="let rating"> {{rating.friendly}} </mat-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

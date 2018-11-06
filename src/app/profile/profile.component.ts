@@ -32,11 +32,19 @@ export class ProfileComponent implements OnInit {
 
     this.getUserRatings();
     this.dataSource = new MatTableDataSource(this.userRatings);
-    console.log(this.dataSource)
+  }
+
+  ngAfterViewInit() {
+    setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
+    setTimeout(() =>this.dataSource.sort = this.sort, 500);
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   getUserRatings() {

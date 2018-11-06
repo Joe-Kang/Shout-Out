@@ -13,6 +13,7 @@ export class InMemoryDataService implements InMemoryDbService {
       ];
 
       const teams = [
+        {id: 0, name: "team0", rating: [0, 3]},
         {id: 1, name: "team1", rating: [0, 3]},
         {id: 2, name: "team2", rating: [1]},
         {id: 3, name: "team3", rating: [2]},
@@ -40,10 +41,10 @@ export class InMemoryDataService implements InMemoryDbService {
       ];
 
       const ratings = [
-        {id: 0, user: 0, team: 0, helpful: 10, responsive: 10, friendly: 10},
-        {id: 1, user: 1, team: 1, helpful: 10, responsive: 10, friendly: 10},
-        {id: 2, user: 2, team: 2, helpful: 10, responsive: 10, friendly: 10},
-        {id: 3, user: 3, team: 0, helpful: 10, responsive: 10, friendly: 10}
+        {id: 0, user: 0, team: "team0", helpful: 10, responsive: 10, friendly: 10},
+        {id: 1, user: 1, team: "team1", helpful: 10, responsive: 10, friendly: 10},
+        {id: 2, user: 2, team: "team2", helpful: 10, responsive: 10, friendly: 10},
+        {id: 3, user: 3, team: "team3", helpful: 10, responsive: 10, friendly: 10}
       ]
       return {users, teams, ratings};
     }
