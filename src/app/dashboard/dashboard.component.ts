@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../user';
 import { Team } from '../team';
+import { Rating } from '../rating';
 import { ApiService } from '../api.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatTab } from '@angular/material';
 
@@ -29,7 +30,6 @@ export class DashboardComponent implements OnInit {
   ngAfterViewInit() {
     setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
     setTimeout(() =>this.dataSource.sort = this.sort, 500);
-
   }
 
   applyFilter(filterValue: string) {

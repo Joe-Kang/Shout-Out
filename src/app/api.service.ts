@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 import { Rating } from './rating';
 import { Team } from './team';
@@ -18,9 +18,16 @@ export class ApiService {
   private teamsUrl = 'api/teams';
   private ratingsUrl = 'api/ratings';
 
+  userLoggedIn: User;
+
+  private messageSource = new BehaviorSubject(false);
+  currentMessage = this.messageSource.asObservable();
+
   constructor(private http: HttpClient) { }
 
-  userLoggedIn: User;
+  changeMessage(message:boolean) {
+    this.messageSource.next(message);
+  }
 
 
   // Users

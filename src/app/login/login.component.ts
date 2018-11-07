@@ -3,14 +3,7 @@ import { Router } from '@angular/router';
 import { User } from '../user';
 import { ApiService } from '../api.service';
 import { FormControl, Validator, Validators } from '@angular/forms';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-} from '@angular/animations';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -40,23 +33,22 @@ import {
     ]),
   ],
 })
+
 export class LoginComponent implements OnInit {
   user = new User();
   users: User[] = [];
-  constructor(
-    private _route: Router,
-    private apiService: ApiService
-    ) { }
-
   show: boolean;
-
   login_failed = false;
+  message: boolean;
+
+  constructor( private _route: Router, private apiService: ApiService) { }
 
   ngOnInit() {
     this.show = false;
     setTimeout(() => this.show = true)
     this.apiService.getUsers()
     .subscribe(users => this.users = users);
+    this.apiService.currentMessage.subscribe(message => this.message = message)
   }
 
   register(): void {
@@ -69,6 +61,7 @@ export class LoginComponent implements OnInit {
       if(user.username == this.user.username) {
         if(user.password == this.user.password) {
           this.apiService.userLoggedIn = user;
+          this.apiService.changeMessage(true)
           this.show = false;
           setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
         } else {
@@ -81,6 +74,6 @@ export class LoginComponent implements OnInit {
     if(this.show == true) {
       console.log("Wrong username")
     }
-
   }
+
 }
