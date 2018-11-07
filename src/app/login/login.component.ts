@@ -4,7 +4,8 @@ import { User } from '../user';
 import { ApiService } from '../api.service';
 import { FormControl, Validator, Validators } from '@angular/forms';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-
+import { AppComponent } from '../app.component';
+import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -38,10 +39,9 @@ export class LoginComponent implements OnInit {
   user = new User();
   users: User[] = [];
   show: boolean;
-  login_failed = false;
   status: boolean;
 
-  constructor( private _route: Router, private apiService: ApiService) { }
+  constructor( private _route: Router, private apiService: ApiService, public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.show = false;
@@ -62,17 +62,16 @@ export class LoginComponent implements OnInit {
         if(user.password == this.user.password) {
           this.apiService.userLoggedIn = user;
           this.apiService.changeStatus(true);
+          this.snackBar.dismiss();
           this.show = false;
           setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
         } else {
-          this.login_failed = true;
-          console.log("found user but wrong password");
           break;
         }
       }
     }
     if(this.show == true) {
-      console.log("Wrong username")
+      this.snackBar.open("Incorrect username or password!", "OK", {duration: 5000,});
     }
   }
 

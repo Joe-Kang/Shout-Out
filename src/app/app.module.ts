@@ -22,6 +22,7 @@ import {
   MatTableModule,
   MatSortModule,
   MatPaginatorModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 
@@ -60,6 +61,7 @@ import { ProfileComponent } from './profile/profile.component';
     MatTableModule,
     MatSortModule,
     MatPaginatorModule,
+    MatSnackBarModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )
