@@ -1,6 +1,3 @@
-
-
-
 <mat-card>
   <mat-card-header>
     <mat-card-title>{{user.firstname}} {{user.lastname}}</mat-card-title>
@@ -38,6 +35,15 @@
           <mat-header-cell *matHeaderCellDef mat-sort-header> Friendly </mat-header-cell>
           <mat-cell *matCellDef="let rating"> {{rating.friendly}} </mat-cell>
       </ng-container>
+
+      <ng-container matColumnDef="options">
+          <mat-header-cell *matHeaderCellDef mat-sort-header> Options </mat-header-cell>
+          <mat-cell *matCellDef="let rating">
+            <button mat-button (click)="edit(rating)">Edit</button>
+            <button mat-button (click)="delete(rating)">Delete</button>
+             </mat-cell>
+      </ng-container>
+
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>

@@ -17,7 +17,7 @@ export class ProfileComponent implements OnInit {
   user: User;
   userRatings: Rating[] = [];
 
-  displayedColumns: string[] = ['id', 'team', 'helpful', 'responsive', 'friendly'];
+  displayedColumns: string[] = ['id', 'team', 'helpful', 'responsive', 'friendly', 'options'];
   dataSource: MatTableDataSource<Rating>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -30,7 +30,6 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.user = this.apiService.userLoggedIn;
     if (this.user.rating) {
-      console.log(this.user.rating.length)
       this.getUserRatings();
       this.dataSource = new MatTableDataSource(this.userRatings);
     }
@@ -41,10 +40,9 @@ export class ProfileComponent implements OnInit {
       setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
       setTimeout(() =>this.dataSource.sort = this.sort, 500);
     }
-
   }
 
-  applyFilter(filterValue: string) {
+  applyFilter(filterValue: string): void {
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -52,13 +50,21 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  getUserRatings() {
+  getUserRatings(): void {
     for (var i = 0; i < this.user.rating.length; i++) {
       this.apiService.getRating(this.user.rating[i])
         .subscribe(rating => this.userRatings.push(rating));
     }
   }
 
+  delete(rating: Rating): void {
+    this.user.rating = this.user.rating.filter(r => r !== rating.id);
+    this.apiService.userLoggedIn = this.user;
+    this.apiService.updateUser(this.user).subscribe();
+    this.userRatings = this.userRatings.filter(r => r !== rating);
+    this.dataSource = new MatTableDataSource(this.userRatings);
+    this.apiService.deleteRating(rating).subscribe();
+  }
 
 
 }

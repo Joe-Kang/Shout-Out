@@ -6,5 +6,5 @@ export class User {
   lastname: string;
   username: string;
   password: string;
-  rating: [Rating["id"]];
+  rating: number[];
 }
