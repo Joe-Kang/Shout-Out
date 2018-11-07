@@ -3,14 +3,7 @@ import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { User } from '../user';
 import { ApiService } from '../api.service';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition,
-  // ...
-} from '@angular/animations';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-register',
@@ -37,6 +30,7 @@ import {
 export class RegisterComponent implements OnInit {
   user = new User();
   result: string;
+  status: boolean;
   constructor(
     private _route: Router,
     private location: Location,
@@ -48,11 +42,13 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     this.show = false;
     setTimeout(() => this.show = true)
+    this.apiService.currentStatus.subscribe(status => this.status = status);
   }
 
   register(): void {
     this.apiService.addUser(this.user)
       .subscribe(user => this.apiService.userLoggedIn = user);
+    this.apiService.changeStatus(true)
     this.show = false;
     setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
   }

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
   users: User[] = [];
   show: boolean;
   login_failed = false;
-  message: boolean;
+  status: boolean;
 
   constructor( private _route: Router, private apiService: ApiService) { }
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
     setTimeout(() => this.show = true)
     this.apiService.getUsers()
     .subscribe(users => this.users = users);
-    this.apiService.currentMessage.subscribe(message => this.message = message)
+    this.apiService.currentStatus.subscribe(status => this.status = status);
   }
 
   register(): void {
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
       if(user.username == this.user.username) {
         if(user.password == this.user.password) {
           this.apiService.userLoggedIn = user;
-          this.apiService.changeMessage(true)
+          this.apiService.changeStatus(true);
           this.show = false;
           setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
         } else {

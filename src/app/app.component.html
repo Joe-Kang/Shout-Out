@@ -11,7 +11,7 @@
       <mat-toolbar-row class="toolbar">
         <button (click)="homepage()"> Shout Out </button>
         <span class="spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="!message">
+        <button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="!status">
             <mat-icon  class="icon"> account_circle </mat-icon>
         </button>
         <mat-menu #menu="matMenu">

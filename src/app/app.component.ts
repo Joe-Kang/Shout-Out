@@ -11,13 +11,13 @@ import { LoginComponent } from './login/login.component';
 
 })
 export class AppComponent {
-  message: boolean;
+  status: boolean;
 
   constructor(private apiService: ApiService, private route: Router) {
       if(this.apiService.userLoggedIn == null) {
         this.route.navigateByUrl('login');
       }
-      this.apiService.currentMessage.subscribe(message => this.message = message)
+      this.apiService.currentStatus.subscribe(status => this.status = status)
   }
 
   homepage(): void {
@@ -32,7 +32,7 @@ export class AppComponent {
 
   logout(): void {
     this.apiService.userLoggedIn = null;
-    this.message = false;
+    this.status = false;
     this.route.navigateByUrl('login');
   }
 }

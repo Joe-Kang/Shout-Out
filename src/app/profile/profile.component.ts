@@ -29,14 +29,19 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.apiService.userLoggedIn;
-
-    this.getUserRatings();
-    this.dataSource = new MatTableDataSource(this.userRatings);
+    if (this.user.rating) {
+      console.log(this.user.rating.length)
+      this.getUserRatings();
+      this.dataSource = new MatTableDataSource(this.userRatings);
+    }
   }
 
   ngAfterViewInit() {
-    setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
-    setTimeout(() =>this.dataSource.sort = this.sort, 500);
+    if (this.user.rating) {
+      setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
+      setTimeout(() =>this.dataSource.sort = this.sort, 500);
+    }
+
   }
 
   applyFilter(filterValue: string) {

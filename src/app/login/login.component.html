@@ -9,7 +9,7 @@
       </mat-form-field>
 
       <mat-form-field fxFlex>
-        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" required>
+        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" (keyup.enter)="login()" required>
         <mat-error>
           Password required
         </mat-error>

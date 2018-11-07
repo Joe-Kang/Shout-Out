@@ -20,15 +20,14 @@ export class ApiService {
 
   userLoggedIn: User;
 
-  private messageSource = new BehaviorSubject(false);
-  currentMessage = this.messageSource.asObservable();
+  private logStatus = new BehaviorSubject(false);
+  currentStatus = this.logStatus.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  changeMessage(message:boolean) {
-    this.messageSource.next(message);
+  changeStatus(status: boolean) {
+    this.logStatus.next(status);
   }
-
 
   // Users
   getUsers(): Observable<User[]> {
