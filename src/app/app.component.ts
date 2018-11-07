@@ -12,19 +12,12 @@ import { LoginComponent } from './login/login.component';
 })
 export class AppComponent {
   message: boolean;
-  disableMenu: boolean = true;
 
   constructor(private apiService: ApiService, private route: Router) {
       if(this.apiService.userLoggedIn == null) {
         this.route.navigateByUrl('login');
       }
-
       this.apiService.currentMessage.subscribe(message => this.message = message)
-      if(this.message == "logged in") {
-        this.disableMenu = false;
-      } else {
-        this.disableMenu = true;
-      }
   }
 
   homepage(): void {
@@ -34,8 +27,12 @@ export class AppComponent {
   }
 
   profilepage(): void {
-    if(this.apiService.userLoggedIn) {
-      this.route.navigateByUrl('/profile/' + this.apiService.userLoggedIn.id)
-    }
+    this.route.navigateByUrl('/profile/' + this.apiService.userLoggedIn.id)
+  }
+
+  logout(): void {
+    this.apiService.userLoggedIn = null;
+    this.message = false;
+    this.route.navigateByUrl('login');
   }
 }
