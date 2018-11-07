@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit {
 
   user: User;
   userRatings: Rating[] = [];
+  team: Team;
 
   displayedColumns: string[] = ['id', 'team', 'helpful', 'responsive', 'friendly', 'options'];
   dataSource: MatTableDataSource<Rating>;
@@ -58,11 +59,24 @@ export class ProfileComponent implements OnInit {
   }
 
   delete(rating: Rating): void {
+    // Remove rating ID from user
     this.user.rating = this.user.rating.filter(r => r !== rating.id);
     this.apiService.userLoggedIn = this.user;
     this.apiService.updateUser(this.user).subscribe();
+
+    // Remove rating from list
     this.userRatings = this.userRatings.filter(r => r !== rating);
     this.dataSource = new MatTableDataSource(this.userRatings);
+
+    // Remove rating from team
+    this.apiService.getTeamByName(rating.team).subscribe(team => {
+      this.team = team[0];
+      this.team.rating = this.team.rating.filter(r => r !== rating.id);
+      this.apiService.updateTeam(this.team).subscribe();
+    });
+
+
+    // Delete rating
     this.apiService.deleteRating(rating).subscribe();
   }
 

@@ -40,7 +40,7 @@ export class ApiService {
   }
 
   findUser(username: string): Observable<User> {
-    const url = `${this.usersUrl}/${username}`;
+    const url = `${this.usersUrl}/?username=${username}`;
     return this.http.get<User>(url);
   }
 
@@ -65,7 +65,16 @@ export class ApiService {
 
   getTeam(id: number): Observable<Team> {
     const url = `${this.teamsUrl}/${id}`;
-    return this.http.get<Team>(url)
+    return this.http.get<Team>(url);
+  }
+
+  getTeamByName(name: string): Observable<Team> {
+    const url = `${this.teamsUrl}/?name=${name}`;
+    return this.http.get<Team>(url);
+  }
+
+  updateTeam(team: Team): Observable<any> {
+    return this.http.put(this.teamsUrl, team, httpOptions);
   }
 
   // Ratings

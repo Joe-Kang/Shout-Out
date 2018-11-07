@@ -3,8 +3,8 @@ import { Team } from './team';
 
 export class Rating {
   id: number;
-  user: User["id"];
-  team: Team["name"];
+  user: number;
+  team: string;
   helpful: number;
   responsive: number;
   friendly: number;
