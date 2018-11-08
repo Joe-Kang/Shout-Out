@@ -30,6 +30,10 @@ export class AppComponent {
     this.route.navigateByUrl('/profile/' + this.apiService.userLoggedIn.id)
   }
 
+  rate(): void {
+    this.route.navigateByUrl('/rate')
+  }
+
   logout(): void {
     this.apiService.userLoggedIn = null;
     this.status = false;

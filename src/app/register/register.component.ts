@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material';
   animations: [
     trigger('upDown', [
       state('down', style({
-        top: "58px"
+        top: "64px"
       })),
       state('up', style({
         top: "-275px",

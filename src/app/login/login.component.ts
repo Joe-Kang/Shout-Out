@@ -15,7 +15,7 @@ import { MatSnackBar } from '@angular/material';
       state('down', style({
         width: "300px",
         height: "175px",
-        top: "55px",
+        top: "64px",
         margin: "auto"
       })),
       state('up', style({

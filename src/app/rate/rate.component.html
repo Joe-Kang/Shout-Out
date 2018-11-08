@@ -1,0 +1,27 @@
+<mat-card>
+    <mat-form-field>
+        <mat-select placeholder="Team" [(ngModel)]="selectedTeam">
+          <mat-option value="{{team.name}}" *ngFor="let team of teams">{{team.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    <div fxLayout="column">
+      <div fxLayout="row">
+        <span class="helpfulLabel" >Helpful</span>
+        <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="helpful"tickInterval="1" min="1" max="10" value="5" aria-label="Helpful"></mat-slider>
+      </div>
+      <div fxLayout="row" >
+        <span>Responsive</span>
+        <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="responsive" tickInterval="1" min="1" max="10" value="5"></mat-slider>
+      </div>
+      <div fxLayout="row">
+        <span class="friendlyLabel" >Friendly</span>
+        <mat-slider thumbLabel [displayWith]="formatLabel" [(ngModel)]="friendly"tickInterval="1" min="1" max="10" value="5"></mat-slider>
+      </div>
+    </div>
+
+    <div fxLayout="row">
+        <button (click)="cancel()" mat-button color="accent" fxFlex>Cancel</button>
+        <div fxFlex></div>
+        <button (click)="rate()" type="submit" mat-button color="primary" [disabled]=""fxFlex>Rate</button>
+      </div>
+</mat-card>
