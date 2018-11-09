@@ -43,6 +43,7 @@ export class DashboardComponent implements OnInit {
     this.apiService.getTeams()
       .subscribe(teams => this.dataSource = new MatTableDataSource(teams));
   }
+
   goTeam(id: number) {
     this.route.navigateByUrl("/team/" + id);
   }

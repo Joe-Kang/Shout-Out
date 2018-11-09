@@ -60,6 +60,7 @@ export class RegisterComponent implements OnInit {
     }
     if (this.validUsername == true) {
       this.validUsername = false;
+      this.user.rating = [];
       this.apiService.addUser(this.user)
       .subscribe(user => this.apiService.userLoggedIn = user);
       this.apiService.changeStatus(true)

@@ -4,6 +4,7 @@ import { Team } from '../team';
 import { Rating } from '../rating';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
 import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 
@@ -25,7 +26,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -79,6 +81,8 @@ export class ProfileComponent implements OnInit {
     this.apiService.deleteRating(rating).subscribe();
   }
 
-
-
+  goTeam(name: string): void {
+    this.apiService.getTeamByName(name)
+      .subscribe(team => this.router.navigateByUrl("/team/" + team[0].id));
+  }
 }

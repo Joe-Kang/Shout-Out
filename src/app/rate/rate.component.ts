@@ -49,6 +49,7 @@ export class RateComponent implements OnInit {
     this.rating.user = this.apiService.userLoggedIn.id;
     this.apiService.addRating(this.rating)
       .subscribe(rating => {
+        console.log(this.apiService.userLoggedIn)
         this.apiService.userLoggedIn.rating.push(rating.id);
         this.apiService.updateUser(this.apiService.userLoggedIn)
         .subscribe()

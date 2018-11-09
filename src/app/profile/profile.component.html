@@ -20,7 +20,7 @@
 
       <ng-container matColumnDef="team">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
-        <mat-cell *matCellDef="let rating"> {{rating.team}} </mat-cell>
+        <mat-cell *matCellDef="let rating" (click)="goTeam(rating.team)" class="teamName"> {{rating.team}} </mat-cell>
       </ng-container>
 
       <ng-container matColumnDef="helpful">
