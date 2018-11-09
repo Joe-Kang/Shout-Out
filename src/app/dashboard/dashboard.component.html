@@ -15,9 +15,19 @@
       <mat-cell *matCellDef="let team" (click)="goTeam(team.id)" class="teamName"> {{team.name}} </mat-cell>
     </ng-container>
 
-    <ng-container matColumnDef="rating">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Rating </mat-header-cell>
-      <mat-cell *matCellDef="let team"> {{team.rating}} </mat-cell>
+    <ng-container matColumnDef="helpful">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Helpful </mat-header-cell>
+      <mat-cell *matCellDef="let team"> {{team.aveHelpful.toFixed(2)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="responsive">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Responsive </mat-header-cell>
+      <mat-cell *matCellDef="let team"> {{team.aveResponsive.toFixed(2)}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="friendly">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Thankful </mat-header-cell>
+      <mat-cell *matCellDef="let team"> {{team.aveFriendly.toFixed(2)}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

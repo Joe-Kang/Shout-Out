@@ -68,6 +68,7 @@ export class RegisterComponent implements OnInit {
       this.show = false;
       setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
     }
+    this.validUsername = true;
   }
 
   cancel(): void {

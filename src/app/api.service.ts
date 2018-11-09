@@ -20,7 +20,6 @@ export class ApiService {
 
   userLoggedIn: User;
 
-
   private logStatus = new BehaviorSubject(false);
   currentStatus = this.logStatus.asObservable();
 
@@ -103,9 +102,4 @@ export class ApiService {
     const url = `${this.ratingsUrl}/${id}`;
     return this.http.delete<Rating>(url, httpOptions)
   }
-
-
-
-
-
 }

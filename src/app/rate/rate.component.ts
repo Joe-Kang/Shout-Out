@@ -49,7 +49,6 @@ export class RateComponent implements OnInit {
     this.rating.user = this.apiService.userLoggedIn.id;
     this.apiService.addRating(this.rating)
       .subscribe(rating => {
-        console.log(this.apiService.userLoggedIn)
         this.apiService.userLoggedIn.rating.push(rating.id);
         this.apiService.updateUser(this.apiService.userLoggedIn)
         .subscribe()
@@ -63,15 +62,12 @@ export class RateComponent implements OnInit {
 
         this.total = this.team.aveHelpful * (this.team.rating.length - 1);
         this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
-        this.team.aveHelpful.toFixed(2);
 
         this.total = this.team.aveResponsive * (this.team.rating.length - 1);
         this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
-        this.team.aveResponsive.toFixed(2);
 
         this.total = this.team.aveFriendly * (this.team.rating.length - 1);
         this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
-        this.team.aveFriendly.toFixed(2);
         this.apiService.updateTeam(this.team)
           .subscribe(team => this._route.navigateByUrl("dashboard"));
 

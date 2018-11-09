@@ -12,7 +12,7 @@ import { MatTableDataSource, MatSort, MatPaginator, MatTab } from '@angular/mate
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'rating'];
+  displayedColumns: string[] = ['id', 'name', 'helpful', 'responsive', 'friendly'];
   dataSource: MatTableDataSource<Team>;
 
 
@@ -31,13 +31,6 @@ export class DashboardComponent implements OnInit {
     setTimeout(() =>this.dataSource.sort = this.sort, 500);
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
 
   getTeams(): void {
     this.apiService.getTeams()
@@ -47,5 +40,13 @@ export class DashboardComponent implements OnInit {
   goTeam(id: number) {
     this.route.navigateByUrl("/team/" + id);
   }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 
 }
