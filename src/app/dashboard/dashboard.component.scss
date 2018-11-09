@@ -20,3 +20,8 @@ mat-table {
 th.mat-sort-header-sorted {
   color: black;
 }
+
+.teamName {
+  cursor: pointer;
+  outline: 0;
+}

@@ -20,6 +20,7 @@ export class ApiService {
 
   userLoggedIn: User;
 
+
   private logStatus = new BehaviorSubject(false);
   currentStatus = this.logStatus.asObservable();
 

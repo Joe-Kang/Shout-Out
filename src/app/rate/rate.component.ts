@@ -15,10 +15,12 @@ export class RateComponent implements OnInit {
   rating: Rating = new Rating;
   teams: Team[] = [];
   selectedTeam: string;
-  helpful: number;
-  responsive: number;
-  friendly: number;
+  helpful: number = 5;
+  responsive: number = 5;
+  friendly: number = 5;
   team: Team;
+
+  total: number = 0;
 
   constructor(
     private _route: Router,
@@ -47,9 +49,9 @@ export class RateComponent implements OnInit {
     this.rating.user = this.apiService.userLoggedIn.id;
     this.apiService.addRating(this.rating)
       .subscribe(rating => {
-        this.rating = rating;
+        this.apiService.userLoggedIn.rating.push(rating.id);
         this.apiService.updateUser(this.apiService.userLoggedIn)
-        .subscribe(user => this.apiService.userLoggedIn.rating.push(this.rating.id))
+        .subscribe()
         for (let team of this.teams) {
           if (team.name == this.selectedTeam) {
             this.team = team;
@@ -57,6 +59,18 @@ export class RateComponent implements OnInit {
           }
         }
         this.team.rating.push(rating.id);
+
+        this.total = this.team.aveHelpful * (this.team.rating.length - 1);
+        this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
+        this.team.aveHelpful.toFixed(2);
+
+        this.total = this.team.aveResponsive * (this.team.rating.length - 1);
+        this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
+        this.team.aveResponsive.toFixed(2);
+
+        this.total = this.team.aveFriendly * (this.team.rating.length - 1);
+        this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
+        this.team.aveFriendly.toFixed(2);
         this.apiService.updateTeam(this.team)
           .subscribe(team => this._route.navigateByUrl("dashboard"));
 

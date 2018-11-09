@@ -34,6 +34,7 @@ import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RateComponent } from './rate/rate.component';
+import { TeamComponent } from './team/team.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { RateComponent } from './rate/rate.component';
     RegisterComponent,
     DashboardComponent,
     ProfileComponent,
-    RateComponent
+    RateComponent,
+    TeamComponent
   ],
   imports: [
     BrowserModule,

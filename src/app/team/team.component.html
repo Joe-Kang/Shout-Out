@@ -1,54 +1,44 @@
-<mat-card>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
 
+<mat-card *ngIf="team$ | async; let team">
   <mat-card-header>
-    <mat-card-title>{{user.firstname}} {{user.lastname}}</mat-card-title>
-    <mat-card-subtitle>{{user.username}}</mat-card-subtitle>
+    <mat-card-title  >{{team.name}}</mat-card-title>
   </mat-card-header>
 
   <mat-card-content>
-
-    <mat-form-field class="filter">
-        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-    </mat-form-field>
-
     <mat-table [dataSource]="dataSource" matSort class="mat-elevation-z10">
 
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef mat-sort-header> No. </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.id}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="team">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Team </mat-header-cell>
-        <mat-cell *matCellDef="let rating"> {{rating.team}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef> Averages: </mat-footer-cell>
       </ng-container>
 
       <ng-container matColumnDef="helpful">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Helpful </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.helpful}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveHelpful.toFixed(2)}} </mat-footer-cell>
       </ng-container>
 
       <ng-container matColumnDef="responsive">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Responsive </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.responsive}} </mat-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveResponsive.toFixed(2)}} </mat-footer-cell>
       </ng-container>
 
       <ng-container matColumnDef="friendly">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Friendly </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.friendly}} </mat-cell>
-      </ng-container>
-
-      <ng-container matColumnDef="options">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Options </mat-header-cell>
-        <mat-cell *matCellDef="let rating">
-          <button mat-button color="accent" (click)="edit(rating)">Edit</button>
-          <button mat-button color="warn" (click)="delete(rating)">Delete</button>
-        </mat-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveFriendly.toFixed(2)}} </mat-footer-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns; "></mat-row>
+      <mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></mat-footer-row>
+
     </mat-table>
+
     <mat-paginator [pageSizeOptions]="[5, 10, 20, 50]"></mat-paginator>
+
   </mat-card-content>
 </mat-card>

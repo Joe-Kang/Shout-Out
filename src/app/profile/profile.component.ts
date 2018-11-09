@@ -4,7 +4,7 @@ import { Team } from '../team';
 import { Rating } from '../rating';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../api.service';
-import { MatTableDataSource, MatSort, MatPaginator, MatTab } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
 
 
 @Component({
@@ -75,10 +75,10 @@ export class ProfileComponent implements OnInit {
       this.apiService.updateTeam(this.team).subscribe();
     });
 
-
     // Delete rating
     this.apiService.deleteRating(rating).subscribe();
   }
+
 
 
 }

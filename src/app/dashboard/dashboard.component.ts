@@ -3,6 +3,7 @@ import { User } from '../user';
 import { Team } from '../team';
 import { Rating } from '../rating';
 import { ApiService } from '../api.service';
+import { Router } from '@angular/router';
 import { MatTableDataSource, MatSort, MatPaginator, MatTab } from '@angular/material';
 
 @Component({
@@ -19,9 +20,7 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
 
-  constructor(private apiService: ApiService) {
-
-  }
+  constructor(private apiService: ApiService, private route: Router) { }
 
   ngOnInit() {
     this.getTeams();
@@ -44,6 +43,8 @@ export class DashboardComponent implements OnInit {
     this.apiService.getTeams()
       .subscribe(teams => this.dataSource = new MatTableDataSource(teams));
   }
-
+  goTeam(id: number) {
+    this.route.navigateByUrl("/team/" + id);
+  }
 
 }
