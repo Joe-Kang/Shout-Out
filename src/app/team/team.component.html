@@ -17,19 +17,19 @@
       <ng-container matColumnDef="helpful">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Helpful </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.helpful}} </mat-cell>
-        <mat-footer-cell *matFooterCellDef> {{team.aveHelpful.toFixed(2)}} </mat-footer-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveHelpful.toFixed(1)}} </mat-footer-cell>
       </ng-container>
 
       <ng-container matColumnDef="responsive">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Responsive </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.responsive}} </mat-cell>
-        <mat-footer-cell *matFooterCellDef> {{team.aveResponsive.toFixed(2)}} </mat-footer-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveResponsive.toFixed(1)}} </mat-footer-cell>
       </ng-container>
 
       <ng-container matColumnDef="friendly">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Friendly </mat-header-cell>
         <mat-cell *matCellDef="let rating"> {{rating.friendly}} </mat-cell>
-        <mat-footer-cell *matFooterCellDef> {{team.aveFriendly.toFixed(2)}} </mat-footer-cell>
+        <mat-footer-cell *matFooterCellDef> {{team.aveFriendly.toFixed(1)}} </mat-footer-cell>
       </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>

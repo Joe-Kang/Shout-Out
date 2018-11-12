@@ -52,24 +52,23 @@ export class RateComponent implements OnInit {
         this.apiService.userLoggedIn.rating.push(rating.id);
         this.apiService.updateUser(this.apiService.userLoggedIn)
         .subscribe()
-        for (let team of this.teams) {
-          if (team.name == this.selectedTeam) {
-            this.team = team;
-            break;
-          }
-        }
-        this.team.rating.push(rating.id);
+        this.apiService.getTeamByName(this.selectedTeam)
+          .subscribe(team => {
 
-        this.total = this.team.aveHelpful * (this.team.rating.length - 1);
-        this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
+            this.team = team[0];
+            this.team.rating.push(rating.id);
 
-        this.total = this.team.aveResponsive * (this.team.rating.length - 1);
-        this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
+            this.total = this.team.aveHelpful * (this.team.rating.length - 1);
+            this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
 
-        this.total = this.team.aveFriendly * (this.team.rating.length - 1);
-        this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
-        this.apiService.updateTeam(this.team)
-          .subscribe(team => this._route.navigateByUrl("dashboard"));
+            this.total = this.team.aveResponsive * (this.team.rating.length - 1);
+            this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
+
+            this.total = this.team.aveFriendly * (this.team.rating.length - 1);
+            this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
+            this.apiService.updateTeam(this.team)
+              .subscribe(team => this._route.navigateByUrl("dashboard"));
+          });
 
     });
 
