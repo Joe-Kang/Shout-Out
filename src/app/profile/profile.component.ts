@@ -42,8 +42,10 @@ export class ProfileComponent implements OnInit {
 
   ngAfterViewInit() {
     if (this.user.rating) {
-      setTimeout(() =>this.dataSource.paginator = this.paginator, 500);
-      setTimeout(() =>this.dataSource.sort = this.sort, 500);
+      setTimeout(() => {
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }, 500);
     }
   }
 
@@ -61,7 +63,7 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  delete(rating: Rating): void {
+  deleteRating(rating: Rating): void {
     // Remove rating ID from user
     this.user.rating = this.user.rating.filter(r => r !== rating.id);
     this.apiService.userLoggedIn = this.user;
@@ -71,30 +73,41 @@ export class ProfileComponent implements OnInit {
     this.userRatings = this.userRatings.filter(r => r !== rating);
     this.dataSource = new MatTableDataSource(this.userRatings);
 
-    // Remove rating from team
+    // Remove rating from team and update averages
     this.apiService.getTeamByName(rating.team).subscribe(team => {
       this.team = team[0];
       this.team.rating = this.team.rating.filter(r => r !== rating.id);
-      console.log(this.team.rating)
-      for (let rating of this.team.rating) {
-        this.apiService.getRating(rating)
-          .subscribe(rate => {
-            this.totalHelpful += rate.helpful;
-            this.totalResponsive += rate.responsive;
-            this.totalFriendly += rate.friendly;
-          })
-      }
-      setTimeout(() =>{
-        this.team.aveHelpful = this.totalHelpful / this.team.rating.length;
-        this.team.aveResponsive = this.totalResponsive / this.team.rating.length;
-        this.team.aveFriendly = this.totalFriendly / this.team.rating.length;
+      if (this.team.rating.length == 0) {
+        this.team.aveHelpful = 0;
+        this.team.aveFriendly = 0;
+        this.team.aveResponsive = 0;
         this.apiService.updateTeam(this.team).subscribe();
-      }, 500)
+      } else {
+        for (let rating of this.team.rating) {
+          this.apiService.getRating(rating)
+            .subscribe(rate => {
+              this.totalHelpful += rate.helpful;
+              this.totalResponsive += rate.responsive;
+              this.totalFriendly += rate.friendly;
+            })
+        }
+        setTimeout(() =>{
+          this.team.aveHelpful = this.totalHelpful / this.team.rating.length;
+          this.team.aveResponsive = this.totalResponsive / this.team.rating.length;
+          this.team.aveFriendly = this.totalFriendly / this.team.rating.length;
+          this.apiService.updateTeam(this.team).subscribe();
+        }, 500)
+      }
 
     });
 
     // Delete rating
     this.apiService.deleteRating(rating).subscribe();
+    this.apiService.numOfRatings--;
+  }
+
+  editRating(id: number) {
+    this.router.navigateByUrl("/rate/" + id);
   }
 
   goTeam(name: string): void {

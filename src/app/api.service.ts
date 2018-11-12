@@ -19,6 +19,7 @@ export class ApiService {
   private ratingsUrl = 'api/ratings';
 
   userLoggedIn: User;
+  numOfRatings: number = 20;
 
   private logStatus = new BehaviorSubject(false);
   currentStatus = this.logStatus.asObservable();

@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent, pathMatch: 'full' },
   { path: 'dashboard', component: DashboardComponent, pathMatch: 'full' },
   { path: 'profile/:id', component: ProfileComponent, pathMatch: 'full' },
-  { path: 'rate', component: RateComponent, pathMatch: 'full' },
+  { path: 'rate/:id', component: RateComponent, pathMatch: 'full' },
   { path: 'team/:id', component: TeamComponent, pathMatch: 'full' },
 ];
 

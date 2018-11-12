@@ -31,7 +31,7 @@ export class AppComponent {
   }
 
   rate(): void {
-    this.route.navigateByUrl('/rate')
+    this.route.navigateByUrl('/rate/' + this.apiService.numOfRatings);
   }
 
   logout(): void {
