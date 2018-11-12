@@ -1,42 +1,18 @@
-import { Component } from '@angular/core';
-import { ApiService } from './api.service';
-import { Router, ChildActivationEnd } from '@angular/router';
-import { User } from './user';
-import { LoginComponent } from './login/login.component';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ThemeService } from './theme.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-
+  selector:'app-root',
+  templateUrl:'./app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  status: boolean;
+export class AppComponent implements OnInit {
+  isDarkTheme: Observable<boolean>;
 
-  constructor(private apiService: ApiService, private route: Router) {
-      if(this.apiService.userLoggedIn == null) {
-        this.route.navigateByUrl('login');
-      }
-      this.apiService.currentStatus.subscribe(status => this.status = status)
-  }
+  constructor(private themeService: ThemeService) { }
 
-  homepage(): void {
-    if(this.apiService.userLoggedIn) {
-      this.route.navigateByUrl('dashboard')
-    }
-  }
-
-  profilepage(): void {
-    this.route.navigateByUrl('/profile/' + this.apiService.userLoggedIn.id)
-  }
-
-  rate(): void {
-    this.route.navigateByUrl('/rate/' + this.apiService.numOfRatings);
-  }
-
-  logout(): void {
-    this.apiService.userLoggedIn = null;
-    this.status = false;
-    this.route.navigateByUrl('login');
+  ngOnInit() {
+    this.isDarkTheme = this.themeService.isDarkTheme;
   }
 }

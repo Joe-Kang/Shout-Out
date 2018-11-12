@@ -23,7 +23,8 @@ import {
   MatSortModule,
   MatPaginatorModule,
   MatSnackBarModule,
-  MatSliderModule
+  MatSliderModule,
+  MatSlideToggleModule
 } from '@angular/material';
 
 
@@ -35,6 +36,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RateComponent } from './rate/rate.component';
 import { TeamComponent } from './team/team.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,8 @@ import { TeamComponent } from './team/team.component';
     DashboardComponent,
     ProfileComponent,
     RateComponent,
-    TeamComponent
+    TeamComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -68,6 +71,7 @@ import { TeamComponent } from './team/team.component';
     MatPaginatorModule,
     MatSnackBarModule,
     MatSliderModule,
+    MatSlideToggleModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
     )

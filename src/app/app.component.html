@@ -1,36 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<title>Landing Page</title>
-</head>
+  <head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <title>Landing Page</title>
+  </head>
 
-<body>
-  <mat-toolbar color="primary" class="toolbar">
-      <mat-toolbar-row class="toolbar">
-        <button (click)="homepage()"> Shout Out </button>
-        <span class="spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu" [disabled]="!status">
-            <mat-icon  class="icon"> account_circle </mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item color="accent" (click)="profilepage()">
-              <mat-icon>person</mat-icon>
-              <span>Profile</span>
-            </button>
-            <button mat-menu-item color="accent" (click)="rate()">
-                <mat-icon>add_circle_outline</mat-icon>
-                <span>Rate</span>
-              </button>
-            <button mat-menu-item color="accent" (click)="logout()">
-              <mat-icon>meeting_room</mat-icon>
-              <span>Log Out</span>
-            </button>
-          </mat-menu>
-      </mat-toolbar-row>
-  </mat-toolbar>
-  <router-outlet></router-outlet>
-</body>
+  <body [ngClass]="{'dark-theme': isDarkTheme | async}" >
+    <div class="mat-app-background">
+      <app-toolbar></app-toolbar>
+      <router-outlet></router-outlet>
+    </div>
+  </body>
 
 </html>

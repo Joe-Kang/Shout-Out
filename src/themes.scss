@@ -9,12 +9,12 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent, $custom-warn);
 
 @include angular-material-theme($custom-theme);
 
-// $alt-primary: mat-palette($mat-yellow);
-// $alt-accent: mat-palette($mat-grey, 200);
-// $alt-warn: mat-palette($mat-pink);
+.dark-theme {
+  color: $light-primary-text;
+  $dark-primary: mat-palette($mat-yellow);
+  $dark-accent: mat-palette($mat-amber, A400, A100, A700);
+  $dark-warn: mat-palette($mat-red);
+  $dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
 
-// $alt-theme: mat-dark-theme($alt-primary, $alt-accent);
-
-// .alternative {
-//   @include angular-material-theme($alt-theme);
-// }
+  @include angular-material-theme($dark-theme);
+}
