@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService }  from './in-memory-data.service';
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { OverlayContainer } from '@angular/cdk/overlay';
 import {
   MatBottomSheetModule,
   MatButtonModule,
@@ -71,6 +72,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     MatPaginatorModule,
     MatSnackBarModule,
     MatSliderModule,
+
     MatSlideToggleModule,
     HttpClientInMemoryWebApiModule.forRoot(
       InMemoryDataService, { dataEncapsulation: false }
