@@ -60,6 +60,8 @@ export class RegisterComponent implements OnInit {
     if (this.validUsername === true) {
       this.validUsername = false;
       this.user.rating = [];
+      this.user.firstname = this.toTitleCase(this.user.firstname);
+      this.user.lastname = this.toTitleCase(this.user.lastname);
       this.apiService.addUser(this.user).subscribe(user => this.apiService.userLoggedIn = user);
       this.apiService.changeStatus(true)
       this.snackBar.dismiss();
@@ -74,4 +76,12 @@ export class RegisterComponent implements OnInit {
     setTimeout(() => this.location.back(), 700);
   }
 
+  toTitleCase(str: String) {
+    return str.replace(
+        /\w\S*/g,
+        function(txt) {
+            return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+        }
+    );
+}
 }

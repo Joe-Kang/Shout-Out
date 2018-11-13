@@ -36,7 +36,6 @@ export class RateComponent implements OnInit {
   ngOnInit() {
     const id =+ this.route.snapshot.paramMap.get('id');
     if (id != this.apiService.numOfRatings) {
-      console.log("here")
       this.apiService.getRating(id).subscribe(rating => {
         this.rating = rating;
         this.selectedTeam = rating.team;

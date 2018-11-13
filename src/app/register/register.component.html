@@ -5,12 +5,12 @@
     <mat-card-content>
       <div fxLayout="column">
         <mat-form-field hideRequiredMarker>
-            <input matInput placeholder="First Name" [(ngModel)]="user.firstname" name="firstname" required>
+            <input matInput placeholder="First Name" [(ngModel)]="user.firstname" name="firstname" required style="text-transform: capitalize;">
             <mat-error>First name required</mat-error>
         </mat-form-field>
 
         <mat-form-field hideRequiredMarker>
-          <input matInput placeholder="Last Name" [(ngModel)]="user.lastname" name="lastname" required>
+          <input matInput placeholder="Last Name" [(ngModel)]="user.lastname" name="lastname" required style="text-transform: capitalize;">
           <mat-error>Last name required</mat-error>
         </mat-form-field>
 
