@@ -27,11 +27,9 @@ export class DashboardComponent implements OnInit {
 
   getTeams(): void {
     this.apiService.getTeams().subscribe(teams => {
-      console.log(teams)
       this.dataSource = new MatTableDataSource(teams);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.dataSource)
     });
   }
 

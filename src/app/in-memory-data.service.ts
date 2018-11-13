@@ -6,10 +6,10 @@ import { Rating } from './rating';
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
       const users = [
-        {id: 0, firstname: "user1", lastname: "user1", username: "user1", password: "hello", rating: [0,4,8,12,16]},
-        {id: 1, firstname: "user2", lastname: "user2", username: "user2", password: "hello", rating: [1,5,9,13,17]},
-        {id: 2, firstname: "user3", lastname: "user3", username: "user3", password: "hello", rating: [2,6,10,14,18]},
-        {id: 3, firstname: "user4", lastname: "user4", username: "user4", password: "hello", rating: [3,7,11,15,19]},
+        {id: 0, firstname: "Hester", lastname: "Atcock", username: "user1", password: "ngweb1", rating: [0,4,8,12,16]},
+        {id: 1, firstname: "Beilul", lastname: "Struys", username: "user2", password: "ngweb1", rating: [1,5,9,13,17]},
+        {id: 2, firstname: "Becka", lastname: "Sweetmore", username: "user3", password: "ngweb1", rating: [2,6,10,14,18]},
+        {id: 3, firstname: "Bank", lastname: "Elders", username: "user4", password: "ngweb1", rating: [3,7,11,15,19]},
       ];
 
       const teams = [

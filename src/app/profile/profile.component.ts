@@ -5,7 +5,6 @@ import { Rating } from "../rating";
 import { ApiService } from "../api.service";
 import { Router } from "@angular/router";
 import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
-import { map } from "rxjs/operators";
 import { forkJoin } from "rxjs";
 
 @Component({
@@ -20,13 +19,7 @@ export class ProfileComponent implements OnInit {
   totalHelpful: number = 0;
   totalResponsive: number = 0;
   totalFriendly: number = 0;
-  displayedColumns: string[] = [
-    "team",
-    "helpful",
-    "responsive",
-    "friendly",
-    "options"
-  ];
+  displayedColumns: string[] = ["team", "helpful", "responsive", "friendly", "options"];
   dataSource: MatTableDataSource<Rating>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -35,19 +28,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.apiService.userLoggedIn;
-    if (this.user.rating) {
-      this.getUserRatings();
-      this.dataSource = new MatTableDataSource(this.userRatings);
-    }
-  }
-
-  ngAfterViewInit() {
-    if (this.user.rating) {
-      setTimeout(() => {
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }, 500);
-    }
   }
 
   applyFilter(filterValue: string): void {
@@ -58,9 +38,19 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserRatings(): void {
+    const userRatingsArr = [];
     for (let rating of this.user.rating) {
-      this.apiService.getRating(rating).subscribe(rating => this.userRatings.push(rating));
+      userRatingsArr.push(this.apiService.getRating(rating));
     }
+    forkJoin(userRatingsArr).subscribe(responses => {
+      for (const rating of responses) {
+        this.userRatings.push(rating);
+      }
+      this.dataSource = new MatTableDataSource(this.userRatings)
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+
+    })
   }
 
   deleteRating(rating: Rating): void {

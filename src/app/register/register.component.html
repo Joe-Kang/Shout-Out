@@ -13,18 +13,20 @@
     <mat-form-field>
       <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" required>
       <mat-error>Username required</mat-error>
+      <mat-hint>At least 5 characters</mat-hint>
     </mat-form-field>
 
     <mat-form-field>
       <input matInput placeholder="Password" type="password" (keyup.enter)="register()"[(ngModel)]="user.password" name="password" #password ="ngModel" required>
       <mat-error>Password required</mat-error>
+      <mat-hint>At least 6 characters</mat-hint>
     </mat-form-field>
   </div>
 
   <div fxLayout="row">
     <button (click)="cancel()" mat-button color="accent" fxFlex>Cancel</button>
     <div fxFlex></div>
-    <button (click)="register()" type="submit" mat-button color="primary" [disabled]="!user.firstname || !user.lastname || !user.username || !user.password" fxFlex>Register</button>
+    <button (click)="register()" type="submit" mat-button color="primary" [disabled]="!user.firstname || !user.lastname || !user.username || user.username.length < 5 || !user.password || user.password.length < 6" fxFlex>Register</button>
   </div>
 
 </mat-card>
