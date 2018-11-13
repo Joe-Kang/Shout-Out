@@ -69,9 +69,9 @@ export class ApiService {
     return this.http.get<Team>(url);
   }
 
-  getTeamByName(name: string): Observable<Team> {
-    const url = `${this.teamsUrl}/?name=${name}`;
-    return this.http.get<Team>(url);
+  getTeamByName(name: string): Observable<Team[]> {
+    const url = `${this.teamsUrl}?name=${name}`;
+    return this.http.get<Team[]>(url);
   }
 
   updateTeam(team: Team): Observable<any> {

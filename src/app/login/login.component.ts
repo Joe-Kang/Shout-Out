@@ -46,8 +46,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.show = false;
     setTimeout(() => this.show = true)
-    this.apiService.getUsers()
-    .subscribe(users => this.users = users);
+    this.apiService.getUsers().subscribe(users => this.users = users);
     this.apiService.currentStatus.subscribe(status => this.status = status);
   }
 
@@ -58,13 +57,14 @@ export class LoginComponent implements OnInit {
 
   login(): void {
     for (let user of this.users) {
-      if(user.username == this.user.username) {
-        if(user.password == this.user.password) {
+      if(user.username === this.user.username) {
+        if(user.password === this.user.password) {
           this.apiService.userLoggedIn = user;
           this.apiService.changeStatus(true);
           this.snackBar.dismiss();
           this.show = false;
           setTimeout(() => this._route.navigateByUrl('dashboard'), 700);
+          // change here
         } else {
           break;
         }

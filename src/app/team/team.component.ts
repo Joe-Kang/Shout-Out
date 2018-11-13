@@ -38,11 +38,8 @@ export class TeamComponent implements OnInit {
   }
 
   getTeamRatings(): void {
-    for (var i = 0; i < this.selectedTeam.rating.length; i++) {
-      this.apiService.getRating(this.selectedTeam.rating[i])
-        .subscribe(rating => {
-          this.teamRatings.push(rating)
-        });
+    for (let i = 0; i < this.selectedTeam.rating.length; i++) {
+      this.apiService.getRating(this.selectedTeam.rating[i]).subscribe(rating => this.teamRatings.push(rating));
     }
     setTimeout(()=> {
       this.dataSource = new MatTableDataSource(this.teamRatings);

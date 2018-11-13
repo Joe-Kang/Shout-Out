@@ -1,36 +1,37 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { User } from '../user';
-import { Team } from '../team';
-import { Rating } from '../rating';
-import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../api.service';
-import { Router } from '@angular/router';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
-
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { User } from "../user";
+import { Team } from "../team";
+import { Rating } from "../rating";
+import { ApiService } from "../api.service";
+import { Router } from "@angular/router";
+import { MatTableDataSource, MatSort, MatPaginator } from "@angular/material";
+import { map } from "rxjs/operators";
+import { forkJoin } from "rxjs";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
+  styleUrls: ["./profile.component.scss"]
 })
 export class ProfileComponent implements OnInit {
-
   user: User;
   userRatings: Rating[] = [];
   team: Team;
   totalHelpful: number = 0;
   totalResponsive: number = 0;
   totalFriendly: number = 0;
-  displayedColumns: string[] = ['team', 'helpful', 'responsive', 'friendly', 'options'];
+  displayedColumns: string[] = [
+    "team",
+    "helpful",
+    "responsive",
+    "friendly",
+    "options"
+  ];
   dataSource: MatTableDataSource<Rating>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(
-    private apiService: ApiService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  constructor(private apiService: ApiService, private router: Router) {}
 
   ngOnInit() {
     this.user = this.apiService.userLoggedIn;
@@ -57,9 +58,8 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserRatings(): void {
-    for (var i = 0; i < this.user.rating.length; i++) {
-      this.apiService.getRating(this.user.rating[i])
-        .subscribe(rating => this.userRatings.push(rating));
+    for (let rating of this.user.rating) {
+      this.apiService.getRating(rating).subscribe(rating => this.userRatings.push(rating));
     }
   }
 
@@ -77,28 +77,31 @@ export class ProfileComponent implements OnInit {
     this.apiService.getTeamByName(rating.team).subscribe(team => {
       this.team = team[0];
       this.team.rating = this.team.rating.filter(r => r !== rating.id);
-      if (this.team.rating.length == 0) {
+      if (this.team.rating.length === 0) {
         this.team.aveHelpful = 0;
         this.team.aveFriendly = 0;
         this.team.aveResponsive = 0;
         this.apiService.updateTeam(this.team).subscribe();
       } else {
+        const teamRatingArr = [];
         for (let rating of this.team.rating) {
-          this.apiService.getRating(rating)
-            .subscribe(rate => {
-              this.totalHelpful += rate.helpful;
-              this.totalResponsive += rate.responsive;
-              this.totalFriendly += rate.friendly;
-            })
-        }
-        setTimeout(() =>{
+          teamRatingArr.push(this.apiService.getRating(rating));
+        } //fork join
+
+        forkJoin(teamRatingArr).subscribe(responses => {
+
+          for (const rate of responses) {
+            this.totalHelpful += rate.helpful;
+            this.totalResponsive += rate.responsive;
+            this.totalFriendly += rate.friendly;
+          }
+
           this.team.aveHelpful = this.totalHelpful / this.team.rating.length;
           this.team.aveResponsive = this.totalResponsive / this.team.rating.length;
           this.team.aveFriendly = this.totalFriendly / this.team.rating.length;
           this.apiService.updateTeam(this.team).subscribe();
-        }, 500)
+        });
       }
-
     });
 
     // Delete rating
@@ -111,7 +114,6 @@ export class ProfileComponent implements OnInit {
   }
 
   goTeam(name: string): void {
-    this.apiService.getTeamByName(name)
-      .subscribe(team => this.router.navigateByUrl("/team/" + team[0].id));
+    this.apiService.getTeamByName(name).subscribe(team => this.router.navigateByUrl("/team/" + team[0].id));
   }
 }

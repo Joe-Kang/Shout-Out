@@ -10,25 +10,29 @@ import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'helpful', 'responsive', 'friendly'];
+  displayedColumns: string[] = ['name', 'aveHelpful', 'aveResponsive', 'aveFriendly'];
   dataSource: MatTableDataSource<Team>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private apiService: ApiService, private route: Router) { }
+  constructor(
+    private apiService: ApiService,
+    private route: Router
+  ) { }
 
   ngOnInit() {
     this.getTeams();
   }
 
   getTeams(): void {
-    this.apiService.getTeams()
-      .subscribe(teams => {
-        this.dataSource = new MatTableDataSource(teams);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      });
+    this.apiService.getTeams().subscribe(teams => {
+      console.log(teams)
+      this.dataSource = new MatTableDataSource(teams);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      console.log(this.dataSource)
+    });
   }
 
   goTeam(id: number) {

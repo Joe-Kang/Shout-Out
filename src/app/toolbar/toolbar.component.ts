@@ -15,9 +15,6 @@ export class ToolbarComponent implements OnInit {
   overlay;
 
   constructor(private apiService: ApiService, private route: Router, private themeService: ThemeService, private overlayContainer: OverlayContainer) {
-    if(this.apiService.userLoggedIn == null) {
-      this.route.navigateByUrl('login');
-    }
     this.overlay = overlayContainer.getContainerElement();
     this.overlay.classList.add("custom-theme");
     this.apiService.currentStatus.subscribe(status => this.status = status)
@@ -33,12 +30,12 @@ export class ToolbarComponent implements OnInit {
     if (this.overlay.classList.contains("dark-theme")) {
       this.overlay.classList.remove("dark-theme");
       this.overlay.classList.add("custom-theme");
-  } else if (this.overlay.classList.contains("custom-theme")) {
-      this.overlay.classList.remove("custom-theme");
-      this.overlay.classList.add("dark-theme");
-  } else {
-      this.overlay.classList.add("custom-theme");
-  }
+    } else if (this.overlay.classList.contains("custom-theme")) {
+        this.overlay.classList.remove("custom-theme");
+        this.overlay.classList.add("dark-theme");
+    } else {
+        this.overlay.classList.add("custom-theme");
+    }
   }
 
   homepage(): void {

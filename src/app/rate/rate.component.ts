@@ -6,6 +6,7 @@ import { ApiService } from '../api.service';
 import { MatSnackBar } from '@angular/material';
 import { Team } from '../team';
 import { Rating } from '../rating';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-rate',
   templateUrl: './rate.component.html',
@@ -35,12 +36,11 @@ export class RateComponent implements OnInit {
   ngOnInit() {
     const id =+ this.route.snapshot.paramMap.get('id');
     if (id != this.apiService.numOfRatings) {
-      this.apiService.getRating(id)
-      .subscribe(rating => {
+      console.log("here")
+      this.apiService.getRating(id).subscribe(rating => {
         this.rating = rating;
         this.selectedTeam = rating.team;
-        this.apiService.getTeamByName(this.selectedTeam)
-          .subscribe(team => this.teams.push(team[0]));
+        this.apiService.getTeamByName(this.selectedTeam).subscribe(team => this.teams.push(team[0]));
         this.helpful = rating.helpful;
         this.responsive = rating.responsive;
         this.friendly = rating.friendly;
@@ -53,16 +53,19 @@ export class RateComponent implements OnInit {
   }
 
   getTeams(): void {
-    this.apiService.getTeams()
-      .subscribe(teams => {
+    this.apiService.getTeams().subscribe(teams => {
+      console.log(teams)
+      if (this.apiService.userLoggedIn.rating.length == 0) {
+        this.teams = teams
+      } else {
         for (let rate of this.apiService.userLoggedIn.rating) {
-          this.apiService.getRating(rate)
-            .subscribe(rate => {
-              teams = teams.filter(t => t.name !== rate.team);
-              this.teams = teams;
-            });
+          this.apiService.getRating(rate).subscribe(rate => {
+            teams = teams.filter(t => t.name !== rate.team);
+            this.teams = teams;
+          });
         }
-      });
+      }
+    });
   }
 
   cancel(): void {
@@ -74,58 +77,47 @@ export class RateComponent implements OnInit {
     this.rating.helpful = this.helpful;
     this.rating.responsive = this.responsive;
     this.rating.friendly = this.friendly;
-    console.log(this.rating.id)
-    console.log(this.apiService.numOfRatings)
     if (this.rating.id) {
-      console.log("edit rating")
-      this.apiService.updateRating(this.rating)
-        .subscribe();
-      this.apiService.getTeamByName(this.selectedTeam)
-        .subscribe(team => {
-          this.team = team[0];
-          for(let rating of this.team.rating) {
-            this.apiService.getRating(rating)
-              .subscribe(rating => {
-                this.aveHelpful += rating.helpful;
-                this.aveResponsive += rating.responsive;
-                this.aveFriendly += rating.friendly;
-              })
+      this.apiService.updateRating(this.rating).subscribe();
+      this.apiService.getTeamByName(this.selectedTeam).subscribe(team => {
+        this.team = team[0];
+        const teamRatingArr = [];
+        for(let rating of this.team.rating) {
+          teamRatingArr.push(this.apiService.getRating(rating));
+        }
+        forkJoin(teamRatingArr).subscribe(responses => {
+          for (const rating of responses) {
+            this.aveHelpful += rating.helpful;
+            this.aveResponsive += rating.responsive;
+            this.aveFriendly += rating.friendly;
           }
-          setTimeout(() => {
-            this.team.aveHelpful = this.aveHelpful / this.team.rating.length;
-            this.team.aveResponsive = this.aveResponsive / this.team.rating.length;
-            this.team.aveFriendly = this.aveFriendly / this.team.rating.length;
-            this.apiService.updateTeam(this.team)
-              .subscribe(team => this._route.navigateByUrl("dashboard"));
-          }, 500)
 
-        })
+          this.team.aveHelpful = this.aveHelpful / this.team.rating.length;
+          this.team.aveResponsive = this.aveResponsive / this.team.rating.length;
+          this.team.aveFriendly = this.aveFriendly / this.team.rating.length;
+          this.apiService.updateTeam(this.team).subscribe(team => this._route.navigateByUrl("dashboard"));
+        });
+      });
     } else {
-      console.log("new Rating")
       this.rating.user = this.apiService.userLoggedIn.id;
-      this.apiService.addRating(this.rating)
-        .subscribe(rating => {
-          this.apiService.userLoggedIn.rating.push(rating.id);
-          this.apiService.updateUser(this.apiService.userLoggedIn)
-          .subscribe()
-          this.apiService.getTeamByName(this.selectedTeam)
-            .subscribe(team => {
+      this.apiService.addRating(this.rating).subscribe(rating => {
+        this.apiService.userLoggedIn.rating.push(rating.id);
+        this.apiService.updateUser(this.apiService.userLoggedIn).subscribe();
+        this.apiService.getTeamByName(this.selectedTeam).subscribe(team => {
+          this.team = team[0];
+          this.team.rating.push(rating.id);
 
-              this.team = team[0];
-              this.team.rating.push(rating.id);
+          this.total = this.team.aveHelpful * (this.team.rating.length - 1);
+          this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
 
-              this.total = this.team.aveHelpful * (this.team.rating.length - 1);
-              this.team.aveHelpful = (this.total + rating.helpful) / this.team.rating.length;
+          this.total = this.team.aveResponsive * (this.team.rating.length - 1);
+          this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
 
-              this.total = this.team.aveResponsive * (this.team.rating.length - 1);
-              this.team.aveResponsive = (this.total + rating.responsive) / this.team.rating.length;
-
-              this.total = this.team.aveFriendly * (this.team.rating.length - 1);
-              this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
-              this.apiService.updateTeam(this.team)
-                .subscribe(team => this._route.navigateByUrl("dashboard"));
-            });
-      this.apiService.numOfRatings++;
+          this.total = this.team.aveFriendly * (this.team.rating.length - 1);
+          this.team.aveFriendly = (this.total + rating.friendly) / this.team.rating.length;
+          this.apiService.updateTeam(this.team).subscribe(team => this._route.navigateByUrl("dashboard"));
+        });
+        this.apiService.numOfRatings++;
       });
     }
   }

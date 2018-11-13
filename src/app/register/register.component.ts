@@ -46,23 +46,21 @@ export class RegisterComponent implements OnInit {
     this.show = false;
     setTimeout(() => this.show = true)
     this.apiService.currentStatus.subscribe(status => this.status = status);
-    this.apiService.getUsers()
-    .subscribe(users => this.users = users);
+    this.apiService.getUsers().subscribe(users => this.users = users);
   }
 
   register(): void {
     for (let user of this.users) {
-      if(this.user.username == user.username) {
+      if(this.user.username === user.username) {
         this.snackBar.open("Username already registered!", "OK", {duration: 5000,});
         this.validUsername = false;
         break;
       }
     }
-    if (this.validUsername == true) {
+    if (this.validUsername === true) {
       this.validUsername = false;
       this.user.rating = [];
-      this.apiService.addUser(this.user)
-      .subscribe(user => this.apiService.userLoggedIn = user);
+      this.apiService.addUser(this.user).subscribe(user => this.apiService.userLoggedIn = user);
       this.apiService.changeStatus(true)
       this.snackBar.dismiss();
       this.show = false;

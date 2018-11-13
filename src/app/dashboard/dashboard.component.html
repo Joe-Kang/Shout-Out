@@ -9,20 +9,20 @@
 
       <ng-container matColumnDef="name">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Name </mat-header-cell>
-        <mat-cell *matCellDef="let team" (click)="goTeam(team.id)" class="teamName"> {{team.name}} </mat-cell>
+        <mat-cell *matCellDef="let team" (click)="goTeam(team.id)" class="teamName" > {{team.name}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="helpful">
+      <ng-container matColumnDef="aveHelpful">
           <mat-header-cell *matHeaderCellDef mat-sort-header> Helpful </mat-header-cell>
-          <mat-cell *matCellDef="let team" class="teamName"> {{team.aveHelpful.toFixed(1)}} </mat-cell>
+          <mat-cell *matCellDef="let team"> {{team.aveHelpful.toFixed(1)}} </mat-cell>
         </ng-container>
 
-      <ng-container matColumnDef="responsive">
+      <ng-container matColumnDef="aveResponsive">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Responsive </mat-header-cell>
         <mat-cell *matCellDef="let team"> {{team.aveResponsive.toFixed(1)}} </mat-cell>
       </ng-container>
 
-      <ng-container matColumnDef="friendly">
+      <ng-container matColumnDef="aveFriendly">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Friendly </mat-header-cell>
         <mat-cell *matCellDef="let team"> {{team.aveFriendly.toFixed(1)}} </mat-cell>
       </ng-container>
