@@ -28,13 +28,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.apiService.userLoggedIn;
-  }
-
-  applyFilter(filterValue: string): void {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.getUserRatings();
   }
 
   getUserRatings(): void {
@@ -50,7 +44,7 @@ export class ProfileComponent implements OnInit {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
 
-    })
+    });
   }
 
   deleteRating(rating: Rating): void {
@@ -105,5 +99,12 @@ export class ProfileComponent implements OnInit {
 
   goTeam(name: string): void {
     this.apiService.getTeamByName(name).subscribe(team => this.router.navigateByUrl("/team/" + team[0].id));
+  }
+
+  applyFilter(filterValue: string): void {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

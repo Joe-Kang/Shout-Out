@@ -1,24 +1,28 @@
 <mat-card [@upDown]="show ? 'down' : 'up'">
-  <div fxLayout="column">
-    <div fxFlex></div>
-      <mat-form-field fxFlex>
+    <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="column">
+        <mat-form-field fxFlex hideRequiredMarker>
           <input matInput placeholder="Username" [(ngModel)]="user.username" (keyup.enter)="login()" required>
-          <mat-error>
-            Username required
-          </mat-error>
-      </mat-form-field>
+          <mat-error>Username required</mat-error>
+        </mat-form-field>
 
-      <mat-form-field fxFlex>
-        <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" (keyup.enter)="login()" required>
-        <mat-error>
-          Password required
-        </mat-error>
-      </mat-form-field>
-  </div>
-  <div fxLayout="row">
-    <button (click)="register()" mat-button color="accent" fxFlex>Register</button>
-    <div fxFlex></div>
-    <button (click)="login()" mat-button color="primary" [disabled]="!user.username || user.username.length < 5 || !user.password || user.password.length < 6" fxFlex>Login</button>
-  </div>
+        <mat-form-field fxFlex hideRequiredMarker>
+          <input matInput placeholder="Password" type="password" [(ngModel)]="user.password" (keyup.enter)="login()" required>
+          <mat-error>Password required</mat-error>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+        <div fxLayout="row">
+            <button (click)="register()" mat-button color="accent" fxFlex>Register</button>
+            <div fxFlex></div>
+            <button (click)="login()" mat-button color="primary" [disabled]="!user.username || user.username.length < 5 || !user.password || user.password.length < 6" fxFlex>Login</button>
+          </div>
+    </mat-card-actions>
+
 
 </mat-card>

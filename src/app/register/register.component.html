@@ -1,33 +1,42 @@
 <mat-card class="register-container" [@upDown]="show ? 'down' : 'up'">
-  <div fxLayout="column">
-    <mat-form-field>
-        <input matInput placeholder="First Name" [(ngModel)]="user.firstname" name="firstname" required>
-        <mat-error>First name required</mat-error>
-    </mat-form-field>
+    <mat-card-header>
+        <mat-card-title>Registration</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div fxLayout="column">
+        <mat-form-field hideRequiredMarker>
+            <input matInput placeholder="First Name" [(ngModel)]="user.firstname" name="firstname" required>
+            <mat-error>First name required</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Last Name" [(ngModel)]="user.lastname" name="lastname" required>
-      <mat-error>Last name required</mat-error>
-    </mat-form-field>
+        <mat-form-field hideRequiredMarker>
+          <input matInput placeholder="Last Name" [(ngModel)]="user.lastname" name="lastname" required>
+          <mat-error>Last name required</mat-error>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" required>
-      <mat-error>Username required</mat-error>
-      <mat-hint>At least 5 characters</mat-hint>
-    </mat-form-field>
+        <mat-form-field hideRequiredMarker>
+          <input matInput placeholder="Username" [(ngModel)]="user.username" name="username" required>
+          <mat-error>Username required</mat-error>
+          <mat-hint>At least 5 characters</mat-hint>
+        </mat-form-field>
 
-    <mat-form-field>
-      <input matInput placeholder="Password" type="password" (keyup.enter)="register()"[(ngModel)]="user.password" name="password" #password ="ngModel" required>
-      <mat-error>Password required</mat-error>
-      <mat-hint>At least 6 characters</mat-hint>
-    </mat-form-field>
-  </div>
+        <mat-form-field hideRequiredMarker>
+          <input matInput placeholder="Password" type="password" (keyup.enter)="register()"[(ngModel)]="user.password" name="password" #password ="ngModel" required>
+          <mat-error>Password required</mat-error>
+          <mat-hint>At least 6 characters</mat-hint>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
 
-  <div fxLayout="row">
-    <button (click)="cancel()" mat-button color="accent" fxFlex>Cancel</button>
-    <div fxFlex></div>
-    <button (click)="register()" type="submit" mat-button color="primary" [disabled]="!user.firstname || !user.lastname || !user.username || user.username.length < 5 || !user.password || user.password.length < 6" fxFlex>Register</button>
-  </div>
+    <mat-card-actions>
+      <div fxLayout="row">
+        <button (click)="cancel()" mat-button color="accent" fxFlex>Cancel</button>
+        <div fxFlex></div>
+        <button (click)="register()" type="submit" mat-button color="primary" [disabled]="!user.firstname || !user.lastname || !user.username || user.username.length < 5 || !user.password || user.password.length < 6" fxFlex>Register</button>
+      </div>
+    </mat-card-actions>
+
+
 
 </mat-card>
 
