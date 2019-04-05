@@ -53,7 +53,6 @@ export class RateComponent implements OnInit {
 
   getTeams(): void {
     this.apiService.getTeams().subscribe(teams => {
-      console.log(teams)
       if (this.apiService.userLoggedIn.rating.length == 0) {
         this.teams = teams
       } else {

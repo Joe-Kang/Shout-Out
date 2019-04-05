@@ -12,11 +12,11 @@ import { MatSnackBar } from '@angular/material';
   animations: [
     trigger('upDown', [
       state('down', style({
-        top: "64px"
+        top: '64px'
       })),
       state('up', style({
-        top: "-275px",
-        "z-index": "0"
+        top: '-275px',
+        'z-index': '0'
       })),
       transition('down => up', [
         animate('0.7s')
@@ -32,7 +32,7 @@ export class RegisterComponent implements OnInit {
   users: User[] = [];
   result: string;
   status: boolean;
-  validUsername: boolean = true;
+  validUsername: boolean;
   constructor(
     private _route: Router,
     private location: Location,
@@ -43,6 +43,7 @@ export class RegisterComponent implements OnInit {
   show: boolean;
 
   ngOnInit() {
+    this.validUsername = true;
     this.show = false;
     setTimeout(() => this.show = true)
     this.apiService.currentStatus.subscribe(status => this.status = status);
@@ -50,9 +51,9 @@ export class RegisterComponent implements OnInit {
   }
 
   register(): void {
-    for (let user of this.users) {
+    for (const user of this.users) {
       if(this.user.username === user.username) {
-        this.snackBar.open("Username already registered!", "OK", {duration: 5000,});
+        this.snackBar.open('Username already registered!', 'Dismiss', {duration: 2000, verticalPosition: 'top', panelClass: ['snack-bar']});
         this.validUsername = false;
         break;
       }

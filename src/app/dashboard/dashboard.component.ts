@@ -34,7 +34,7 @@ export class DashboardComponent implements OnInit {
   }
 
   goTeam(id: number) {
-    this.route.navigateByUrl("/team/" + id);
+    this.route.navigateByUrl('/team/' + id);
   }
 
   applyFilter(filterValue: string) {

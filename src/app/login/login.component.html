@@ -5,7 +5,7 @@
     <mat-card-content>
       <div fxLayout="column">
         <mat-form-field fxFlex hideRequiredMarker>
-          <input matInput placeholder="Username" [(ngModel)]="user.username" (keyup.enter)="login()" required>
+          <input matInput placeholder="Username" [(ngModel)]="user.username" (keyup.enter)="login()" required autofocus>
           <mat-error>Username required</mat-error>
         </mat-form-field>
 
